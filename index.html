@@ -2,52 +2,54 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>계좌 복사 완료</title>
+  <title>계좌 복사</title>
   <style>
     body {
+      background-color: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
       margin: 0;
-      background-color: transparent;
+      font-family: sans-serif;
     }
-    #message {
-      position: fixed;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: rgba(0,0,0,0.75);
-      color: #fff;
+    #box {
+      background: #fff;
       padding: 20px 30px;
       border-radius: 10px;
-      font-size: 18px;
-      opacity: 0;
-      animation: fadeInOut 3s forwards;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
     }
-
-    @keyframes fadeInOut {
-      0% { opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { opacity: 0; }
+    #copyBtn {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    #message {
+      margin-top: 10px;
+      color: green;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
-  <div id="message">홍길동 계좌번호가 복사되었습니다.</div>
+  <div id="box">
+    <div><strong>홍길동</strong>님의 계좌번호</div>
+    <div id="account">123456-78-901234</div>
+    <button id="copyBtn">계좌번호 복사하기</button>
+    <div id="message"></div>
+  </div>
 
   <script>
-    const accountNumber = "123456-78-901234";
-
-    // 복사 시도
-    navigator.clipboard.writeText(accountNumber).then(() => {
-      // 성공하면 메시지 보여주기 → 자동 애니메이션
-    }).catch(err => {
-      // 실패 시 다른 동작 넣을 수 있음
-      document.getElementById("message").textContent = "복사에 실패했습니다.";
+    document.getElementById("copyBtn").addEventListener("click", function () {
+      const text = document.getElementById("account").innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        document.getElementById("message").textContent = "계좌번호가 복사되었습니다.";
+      }).catch(() => {
+        document.getElementById("message").textContent = "복사에 실패했습니다.";
+      });
     });
-
-    // 일정 시간 후 창 닫기 (선택 사항)
-    setTimeout(() => {
-      // 브라우저 탭 닫기는 보안상 안 되므로 그냥 멈춤
-    }, 3000);
   </script>
 </body>
 </html>
