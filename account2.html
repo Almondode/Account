@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>계좌 복사 완료</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: transparent;
+    }
+    #message {
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0,0,0,0.75);
+      color: #fff;
+      padding: 20px 30px;
+      border-radius: 10px;
+      font-size: 18px;
+      opacity: 0;
+      animation: fadeInOut 3s forwards;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div id="message">홍길동 계좌번호가 복사되었습니다.</div>
+
+  <script>
+    const accountNumber = "123456-78-901234";
+
+    // 복사 시도
+    navigator.clipboard.writeText(accountNumber).then(() => {
+      // 성공하면 메시지 보여주기 → 자동 애니메이션
+    }).catch(err => {
+      // 실패 시 다른 동작 넣을 수 있음
+      document.getElementById("message").textContent = "복사에 실패했습니다.";
+    });
+
+    // 일정 시간 후 창 닫기 (선택 사항)
+    setTimeout(() => {
+      // 브라우저 탭 닫기는 보안상 안 되므로 그냥 멈춤
+    }, 3000);
+  </script>
+</body>
+</html>
